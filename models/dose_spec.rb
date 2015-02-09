@@ -22,12 +22,17 @@ RSpec.describe "Dose", :type => :model do
     expect(dose.description).to eq("6cl")
   end
 
+  it "description cannot be blank" do
+    dose = Dose.new(description: "")
+    expect(dose).not_to be_valid
+  end
+
   it "belongs to a cocktail" do
     dose = Dose.new(cocktail: mojito)
     expect(dose.cocktail).to eq(mojito)
   end
 
-  it "belogns to an ingredient" do
+  it "belongs to an ingredient" do
     dose = Dose.new(ingredient: lemon)
     expect(dose.ingredient).to eq(lemon)
   end
@@ -52,14 +57,4 @@ RSpec.describe "Dose", :type => :model do
     expect(dose).not_to be_valid
   end
 
-  # it "has many doses" do
-  #   cocktail = Dose.new(valid_attributes)
-  #   expect(cocktail).to respond_to(:reviews)
-  # end
-
-  # it "should destroy child reviews when destroying self" do
-  #   cocktail = Dose.create!(valid_attributes)
-  #   3.times { cocktail.reviews.create! content: "great!", rating: 5 }
-  #   expect { cocktail.destroy }.to change { Review.count }.from(3).to(0)
-  # end
 end
