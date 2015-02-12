@@ -9,6 +9,10 @@ RSpec.describe "Dose", :type => :model do
     Ingredient.create!(name: "lemon")
   end
 
+  let (:rhum) do
+    Ingredient.create!(name: "rhum")
+  end
+
   let(:valid_attributes) do
     {
       description: "6cl",
@@ -55,6 +59,9 @@ RSpec.describe "Dose", :type => :model do
     Dose.create!(valid_attributes)
     dose = Dose.new(valid_attributes.merge(description: "1cl"))
     expect(dose).not_to be_valid
+
+    dose = Dose.new(valid_attributes.merge(ingredient: rhum))
+    expect(dose).to be_valid
   end
 
 end
