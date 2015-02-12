@@ -31,7 +31,7 @@ RSpec.describe "Cocktail", :type => :model do
     expect(cocktail.doses.count).to eq(0)
   end
 
-  it "should destroy child reviews when destroying self" do
+  it "should destroy child doses when destroying self" do
     cocktail = Cocktail.create!(valid_attributes)
     ingredient = Ingredient.create!(name: "ice")
     cocktail.doses.create(ingredient: ingredient, description: "A lot!")
