@@ -24,11 +24,9 @@ if defined?(DosesController)
       { description: "" }
     end
 
-    let(:valid_session) { {} }
-
     describe "GET new" do
       it "assigns a new dose as @dose" do
-        get :new, { cocktail_id: @cocktail.id }, valid_session
+        get :new, params: { cocktail_id: @cocktail.id }
         expect(assigns(:cocktail)).to eq(@cocktail)
         expect(assigns(:dose)).to be_a_new(Dose)
       end
@@ -38,30 +36,30 @@ if defined?(DosesController)
       describe "with valid params" do
         it "creates a new Dose" do
           expect {
-            post :create, { cocktail_id: @cocktail.id, :dose => valid_attributes}, valid_session
+            post :create, params: { cocktail_id: @cocktail.id, :dose => valid_attributes}
           }.to change(Dose, :count).by(1)
         end
 
         it "assigns a newly created dose as @dose" do
-          post :create, { cocktail_id: @cocktail.id, :dose => valid_attributes}, valid_session
+          post :create, params: { cocktail_id: @cocktail.id, :dose => valid_attributes}
           expect(assigns(:dose)).to be_a(Dose)
           expect(assigns(:dose)).to be_persisted
         end
 
         it "redirects to the created dose" do
-          post :create, { cocktail_id: @cocktail.id, :dose => valid_attributes}, valid_session
+          post :create, params: { cocktail_id: @cocktail.id, :dose => valid_attributes}
           expect(response).to redirect_to(@cocktail)
         end
       end
 
       describe "with invalid params" do
         it "assigns a newly created but unsaved dose as @dose" do
-          post :create, { cocktail_id: @cocktail.id, :dose => invalid_attributes}, valid_session
+          post :create, params: { cocktail_id: @cocktail.id, :dose => invalid_attributes}
           expect(assigns(:dose)).to be_a_new(Dose)
         end
 
         it "re-renders the 'new' template" do
-          post :create, { cocktail_id: @cocktail.id, :dose => invalid_attributes}, valid_session
+          post :create, params: { cocktail_id: @cocktail.id, :dose => invalid_attributes}
           expect(response).to render_template("new")
         end
       end
@@ -71,7 +69,7 @@ if defined?(DosesController)
       it "deletes a Dose" do
         @dose = Dose.create!(valid_attributes)
         expect {
-          delete :destroy, { id: @dose.id }, valid_session
+          delete :destroy, params: { id: @dose.id }
         }.to change(Dose, :count).by(-1)
       end
     end

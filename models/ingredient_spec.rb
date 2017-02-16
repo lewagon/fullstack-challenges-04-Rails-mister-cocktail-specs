@@ -36,6 +36,6 @@ RSpec.describe "Ingredient", :type => :model do
     ingredient = Ingredient.create!(name: "ice")
     cocktail.doses.create(ingredient: ingredient, description: "A lot!")
 
-    expect { ingredient.destroy }.to raise_error
+    expect { ingredient.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
   end
 end

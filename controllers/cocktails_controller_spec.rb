@@ -17,12 +17,10 @@ if defined?(CocktailsController)
       { name: "" }
     end
 
-    let(:valid_session) { {} }
-
     describe "GET index" do
       it "assigns all cocktails as @cocktails" do
         cocktail = Cocktail.create! valid_attributes
-        get :index, {}, valid_session
+        get :index, params: {}
         expect(assigns(:cocktails)).to eq([cocktail])
       end
     end
@@ -30,14 +28,14 @@ if defined?(CocktailsController)
     describe "GET show" do
       it "assigns the requested cocktail as @cocktail" do
         cocktail = Cocktail.create! valid_attributes
-        get :show, {:id => cocktail.to_param}, valid_session
+        get :show, params: {:id => cocktail.to_param}
         expect(assigns(:cocktail)).to eq(cocktail)
       end
     end
 
     describe "GET new" do
       it "assigns a new cocktail as @cocktail" do
-        get :new, {}, valid_session
+        get :new, params: {}
         expect(assigns(:cocktail)).to be_a_new(Cocktail)
       end
     end
@@ -46,30 +44,30 @@ if defined?(CocktailsController)
       describe "with valid params" do
         it "creates a new Cocktail" do
           expect {
-            post :create, {:cocktail => valid_attributes}, valid_session
+            post :create, params: {:cocktail => valid_attributes}
           }.to change(Cocktail, :count).by(1)
         end
 
         it "assigns a newly created cocktail as @cocktail" do
-          post :create, {:cocktail => valid_attributes}, valid_session
+          post :create, params: {:cocktail => valid_attributes}
           expect(assigns(:cocktail)).to be_a(Cocktail)
           expect(assigns(:cocktail)).to be_persisted
         end
 
         it "redirects to the created cocktail" do
-          post :create, {:cocktail => valid_attributes}, valid_session
+          post :create, params: {:cocktail => valid_attributes}
           expect(response).to redirect_to(Cocktail.last)
         end
       end
 
       describe "with invalid params" do
         it "assigns a newly created but unsaved cocktail as @cocktail" do
-          post :create, {:cocktail => invalid_attributes}, valid_session
+          post :create, params: {:cocktail => invalid_attributes}
           expect(assigns(:cocktail)).to be_a_new(Cocktail)
         end
 
         it "re-renders the 'new' template" do
-          post :create, {:cocktail => invalid_attributes}, valid_session
+          post :create, params: {:cocktail => invalid_attributes}
           expect(response).to render_template("new")
         end
       end
