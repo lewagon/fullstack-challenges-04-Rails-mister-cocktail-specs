@@ -27,7 +27,7 @@ RSpec.describe "Dose", :type => :model do
   end
 
   it "description cannot be blank" do
-    dose = Dose.new(description: "")
+    dose = Dose.new(description: "", ingredient: lemon, cocktail: mojito)
     expect(dose).not_to be_valid
   end
 
